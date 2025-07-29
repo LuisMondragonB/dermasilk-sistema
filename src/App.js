@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Plus, User, Clock, MapPin, Phone, Mail, Search, Filter } from 'lucide-react';
+import { Calendar, Plus, User, Clock, MapPin, Phone, Mail, Search, Filter, ArrowLeft } from 'lucide-react';
 
 function App() {
   const [showNewAppointmentModal, setShowNewAppointmentModal] = useState(false);
@@ -276,14 +276,15 @@ function App() {
       {showNewAppointmentModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="px-6 py-4 border-b border-gray-100">
+            {/* Modal Header with Back Button */}
+            <div className="px-6 py-4 border-b border-gray-100 bg-gray-50">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-semibold text-gray-900">Nueva Cita - Depilación Láser</h3>
                 <button
                   onClick={handleCloseModal}
-                  className="flex items-center space-x-2 px-6 py-3 text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors font-medium"
+                  className="flex items-center space-x-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium shadow-md"
                 >
-                  <span>←</span>
+                  <ArrowLeft className="w-4 h-4" />
                   <span>Regresar</span>
                 </button>
               </div>
