@@ -281,7 +281,7 @@ function App() {
                 <h3 className="text-xl font-semibold text-gray-900">Nueva Cita - Depilación Láser</h3>
                 <button
                   onClick={handleCloseModal}
-                  className="flex items-center space-x-2 px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                  className="flex items-center space-x-2 px-6 py-3 text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors font-medium"
                 >
                   <span>←</span>
                   <span>Regresar</span>
