@@ -78,37 +78,13 @@ const DermasilkMembershipSystem = () => {
       lastWhatsApp: "2025-07-20",
       satisfaction: 5,
       beforeAfterPhotos: 4
-    },
-    {
-      id: 4,
-      name: "Sofia Hernández",
-      phone: "443-321-9876",
-      email: "sofia@email.com", 
-      membershipType: "Familiar Premium",
-      area: "Axilas + Bikini (Madre e Hija)",
-      sessionsCompleted: 3,
-      totalSessions: 8,
-      monthlyPayment: 1200,
-      depositPaid: 1200,
-      nextAppointment: "2025-08-22",
-      status: "Activa",
-      startDate: "2025-05-01",
-      progress: 37.5,
-      referredBy: "Programa Padrinos - Empresa Local",
-      notes: "Membresía corporativa - muy puntuales",
-      loyverseId: "CUST_004",
-      rewardPoints: 180,
-      vipStatus: false,
-      lastWhatsApp: "2025-07-26",
-      satisfaction: 4,
-      beforeAfterPhotos: 2
     }
   ]);
 
   const [appointments] = useState([
     { id: 1, clientName: "Ana García", area: "Piernas Completas", date: "2025-08-15", time: "10:00", status: "Confirmada", loyverseSync: true },
     { id: 2, clientName: "María López", area: "Brazos", date: "2025-08-20", time: "14:30", status: "Pendiente", loyverseSync: false },
-    { id: 3, clientName: "Sofia Hernández", area: "Axilas", date: "2025-08-22", time: "16:00", status: "Confirmada", loyverseSync: true }
+    { id: 3, clientName: "Carmen Ruiz", area: "Axilas", date: "2025-08-22", time: "16:00", status: "Confirmada", loyverseSync: true }
   ]);
 
   const [whatsappMessages] = useState([
@@ -124,7 +100,6 @@ const DermasilkMembershipSystem = () => {
   const [showNewMemberForm, setShowNewMemberForm] = useState(false);
   const [showLoyverseSync, setShowLoyverseSync] = useState(false);
 
-  // Estadísticas del dashboard
   const totalMembers = members.length;
   const activeMembers = members.filter(m => m.status === 'Activa').length;
   const monthlyRevenue = members.filter(m => m.status === 'Activa').reduce((sum, m) => sum + m.monthlyPayment, 0);
@@ -142,8 +117,7 @@ const DermasilkMembershipSystem = () => {
       const membershipTypes = {
         'Básica (6 meses)': { sessions: 6, monthly: 800 },
         'Estándar (8 meses)': { sessions: 8, monthly: 750 },
-        'Premium (12 meses)': { sessions: 12, monthly: 700 },
-        'Familiar Premium': { sessions: 8, monthly: 1200 }
+        'Premium (12 meses)': { sessions: 12, monthly: 700 }
       };
 
       const typeInfo = membershipTypes[newMember.membershipType];
@@ -422,7 +396,107 @@ const DermasilkMembershipSystem = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                    <button
+                    <button className="text-blue-600 hover:text-blue-900">
+                      <MessageCircle className="h-4 w-4" />
+                    </button>
+                    <button className="text-green-600 hover:text-green-900">
+                      <Camera className="h-4 w-4" />
+                    </button>
+                    <button className="text-purple-600 hover:text-purple-900">
+                      <Settings className="h-4 w-4" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {showNewMemberForm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+            <h3 className="text-lg font-semibold mb-4 text-pink-600">Nuevo Miembro Dermasilk®</h3>
+            <div className="space-y-4">
+              <input
+                type="text"
+                placeholder="Nombre completo"
+                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                value={newMember.name}
+                onChange={(e) => setNewMember({...newMember, name: e.target.value})}
+              />
+              <input
+                type="tel"
+                placeholder="Teléfono"
+                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                value={newMember.phone}
+                onChange={(e) => setNewMember({...newMember, phone: e.target.value})}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                value={newMember.email}
+                onChange={(e) => setNewMember({...newMember, email: e.target.value})}
+              />
+              <select
+                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                value={newMember.membershipType}
+                onChange={(e) => setNewMember({...newMember, membershipType: e.target.value})}
+              >
+                <option value="">Tipo de Membresía</option>
+                <option value="Básica (6 meses)">Básica (6 meses) - $800/mes</option>
+                <option value="Estándar (8 meses)">Estándar (8 meses) - $750/mes</option>
+                <option value="Premium (12 meses)">Premium (12 meses) - $700/mes</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Área de tratamiento"
+                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                value={newMember.area}
+                onChange={(e) => setNewMember({...newMember, area: e.target.value})}
+              />
+              <input
+                type="number"
+                placeholder="Depósito pagado"
+                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                value={newMember.depositPaid}
+                onChange={(e) => setNewMember({...newMember, depositPaid: parseInt(e.target.value) || 0})}
+              />
+            </div>
+            <div className="flex space-x-3 mt-6">
+              <button
+                onClick={addNewMember}
+                className="flex-1 bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 transition-colors duration-200"
+              >
+                Crear Miembro
+              </button>
+              <button
+                onClick={() => setShowNewMemberForm(false)}
+                className="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors duration-200"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showLoyverseSync && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+            <h3 className="text-lg font-semibold mb-4 text-green-600">Sincronización con Loyverse</h3>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-3 p-3 border rounded-lg">
+                <Wifi className="h-5 w-5 text-green-500" />
+                <div>
+                  <p className="font-medium">Estado: Conectado</p>
+                  <p className="text-sm text-gray-600">Última sync: {lastSync}</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex space-x-3 mt-6">
+              <button
                 onClick={() => {syncWithLoyverse(); setShowLoyverseSync(false);}}
                 className="flex-1 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors duration-200"
               >
@@ -504,7 +578,6 @@ const DermasilkMembershipSystem = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
@@ -530,7 +603,6 @@ const DermasilkMembershipSystem = () => {
         </div>
       </div>
 
-      {/* Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8">
@@ -560,7 +632,6 @@ const DermasilkMembershipSystem = () => {
         </div>
       </div>
 
-      {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'members' && <MembersTab />}
@@ -577,105 +648,4 @@ const DermasilkMembershipSystem = () => {
   );
 };
 
-export default DermasilkMembershipSystem; className="text-blue-600 hover:text-blue-900">
-                      <MessageCircle className="h-4 w-4" />
-                    </button>
-                    <button className="text-green-600 hover:text-green-900">
-                      <Camera className="h-4 w-4" />
-                    </button>
-                    <button className="text-purple-600 hover:text-purple-900">
-                      <Settings className="h-4 w-4" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {showNewMemberForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold mb-4 text-pink-600">Nuevo Miembro Dermasilk®</h3>
-            <div className="space-y-4">
-              <input
-                type="text"
-                placeholder="Nombre completo"
-                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                value={newMember.name}
-                onChange={(e) => setNewMember({...newMember, name: e.target.value})}
-              />
-              <input
-                type="tel"
-                placeholder="Teléfono"
-                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                value={newMember.phone}
-                onChange={(e) => setNewMember({...newMember, phone: e.target.value})}
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                value={newMember.email}
-                onChange={(e) => setNewMember({...newMember, email: e.target.value})}
-              />
-              <select
-                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                value={newMember.membershipType}
-                onChange={(e) => setNewMember({...newMember, membershipType: e.target.value})}
-              >
-                <option value="">Tipo de Membresía</option>
-                <option value="Básica (6 meses)">Básica (6 meses) - $800/mes</option>
-                <option value="Estándar (8 meses)">Estándar (8 meses) - $750/mes</option>
-                <option value="Premium (12 meses)">Premium (12 meses) - $700/mes</option>
-                <option value="Familiar Premium">Familiar Premium - $1200/mes</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Área de tratamiento"
-                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                value={newMember.area}
-                onChange={(e) => setNewMember({...newMember, area: e.target.value})}
-              />
-              <input
-                type="number"
-                placeholder="Depósito pagado"
-                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                value={newMember.depositPaid}
-                onChange={(e) => setNewMember({...newMember, depositPaid: parseInt(e.target.value) || 0})}
-              />
-            </div>
-            <div className="flex space-x-3 mt-6">
-              <button
-                onClick={addNewMember}
-                className="flex-1 bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 transition-colors duration-200"
-              >
-                Crear Miembro
-              </button>
-              <button
-                onClick={() => setShowNewMemberForm(false)}
-                className="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors duration-200"
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showLoyverseSync && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold mb-4 text-green-600">Sincronización con Loyverse</h3>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3 p-3 border rounded-lg">
-                <Wifi className="h-5 w-5 text-green-500" />
-                <div>
-                  <p className="font-medium">Estado: Conectado</p>
-                  <p className="text-sm text-gray-600">Última sync: {lastSync}</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex space-x-3 mt-6">
-              <button
+export default DermasilkMembershipSystem;
