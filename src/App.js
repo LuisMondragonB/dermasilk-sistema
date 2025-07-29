@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, Calendar, DollarSign, Star, Plus, CheckCircle, Clock, Phone, MessageCircle, Gift, Camera, TrendingUp, Settings, Wifi, Download, Upload, Bell, Heart, Award } from 'lucide-react';
+import { Users, Calendar, DollarSign, Star, Plus, CheckCircle, Phone, MessageCircle, Gift, Camera, TrendingUp, Settings, Wifi, Download, Upload, Award } from 'lucide-react';
 
 const DermasilkMembershipSystem = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -18,16 +18,13 @@ const DermasilkMembershipSystem = () => {
       totalSessions: 8,
       monthlyPayment: 750,
       depositPaid: 750,
-      nextAppointment: "2025-08-15",
       status: "Activa",
       startDate: "2025-01-15",
       progress: 62.5,
       referredBy: "Facebook Ads",
-      notes: "Cliente refiere efectividad desde sesión 1",
       loyverseId: "CUST_001",
       rewardPoints: 125,
       vipStatus: false,
-      lastWhatsApp: "2025-07-25",
       satisfaction: 5,
       beforeAfterPhotos: 3
     },
@@ -42,16 +39,13 @@ const DermasilkMembershipSystem = () => {
       totalSessions: 12,
       monthlyPayment: 1000,
       depositPaid: 700,
-      nextAppointment: "2025-08-20",
       status: "Activa",
       startDate: "2024-12-01",
       progress: 66.7,
       referredBy: "Referido - Ana García",
-      notes: "Muy satisfecha, considera agregar piernas",
       loyverseId: "CUST_002",
       rewardPoints: 240,
       vipStatus: true,
-      lastWhatsApp: "2025-07-27",
       satisfaction: 5,
       beforeAfterPhotos: 5
     },
@@ -66,35 +60,26 @@ const DermasilkMembershipSystem = () => {
       totalSessions: 6,
       monthlyPayment: 600,
       depositPaid: 600,
-      nextAppointment: "Completado",
       status: "Completada",
       startDate: "2024-11-01",
       progress: 100,
       referredBy: "Google",
-      notes: "100% satisfecha - candidata para programa VIP",
       loyverseId: "CUST_003",
       rewardPoints: 350,
       vipStatus: true,
-      lastWhatsApp: "2025-07-20",
       satisfaction: 5,
       beforeAfterPhotos: 4
     }
   ]);
 
   const [appointments] = useState([
-    { id: 1, clientName: "Ana García", area: "Piernas Completas", date: "2025-08-15", time: "10:00", status: "Confirmada", loyverseSync: true },
-    { id: 2, clientName: "María López", area: "Brazos", date: "2025-08-20", time: "14:30", status: "Pendiente", loyverseSync: false },
-    { id: 3, clientName: "Carmen Ruiz", area: "Axilas", date: "2025-08-22", time: "16:00", status: "Confirmada", loyverseSync: true }
-  ]);
-
-  const [whatsappMessages] = useState([
-    { id: 1, clientName: "Ana García", type: "Recordatorio", sent: "2025-07-27 09:00", status: "Leído" },
-    { id: 2, clientName: "María López", type: "Tips post-sesión", sent: "2025-07-26 16:30", status: "Leído" },
-    { id: 3, clientName: "Carmen Ruiz", type: "Satisfacción", sent: "2025-07-25 18:00", status: "Respondido" }
+    { id: 1, clientName: "Ana García", area: "Piernas Completas", date: "2025-08-15", time: "10:00", status: "Confirmada" },
+    { id: 2, clientName: "María López", area: "Brazos", date: "2025-08-20", time: "14:30", status: "Pendiente" },
+    { id: 3, clientName: "Carmen Ruiz", area: "Axilas", date: "2025-08-22", time: "16:00", status: "Confirmada" }
   ]);
 
   const [newMember, setNewMember] = useState({
-    name: '', phone: '', email: '', membershipType: '', area: '', depositPaid: 0, referredBy: ''
+    name: '', phone: '', email: '', membershipType: '', area: '', depositPaid: 0
   });
 
   const [showNewMemberForm, setShowNewMemberForm] = useState(false);
@@ -128,33 +113,31 @@ const DermasilkMembershipSystem = () => {
         sessionsCompleted: 0,
         totalSessions: typeInfo.sessions,
         monthlyPayment: typeInfo.monthly,
-        nextAppointment: "Por agendar",
         status: "Activa",
         startDate: new Date().toISOString().split('T')[0],
         progress: 0,
         loyverseId: `CUST_00${members.length + 1}`,
         rewardPoints: 50,
         vipStatus: false,
-        lastWhatsApp: "",
         satisfaction: 0,
         beforeAfterPhotos: 0
       };
       
       setMembers([...members, member]);
-      setNewMember({ name: '', phone: '', email: '', membershipType: '', area: '', depositPaid: 0, referredBy: '' });
+      setNewMember({ name: '', phone: '', email: '', membershipType: '', area: '', depositPaid: 0 });
       setShowNewMemberForm(false);
     }
   };
 
   const Dashboard = () => (
     <div className="space-y-6">
-      <div className={`p-4 rounded-lg border-l-4 ${loyverseConnected ? 'bg-green-50 border-green-400' : 'bg-red-50 border-red-400'}`}>
+      <div className="bg-green-50 border-green-400 p-4 rounded-lg border-l-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <Wifi className={`h-5 w-5 ${loyverseConnected ? 'text-green-600' : 'text-red-600'}`} />
+            <Wifi className="h-5 w-5 text-green-600" />
             <div>
-              <p className={`font-medium ${loyverseConnected ? 'text-green-800' : 'text-red-800'}`}>
-                Loyverse POS {loyverseConnected ? 'Conectado' : 'Desconectado'}
+              <p className="font-medium text-green-800">
+                Loyverse POS Conectado
               </p>
               <p className="text-sm text-gray-600">Última sincronización: {lastSync}</p>
             </div>
@@ -225,14 +208,65 @@ const DermasilkMembershipSystem = () => {
                   <p className="font-medium text-gray-800">{apt.clientName}</p>
                   <p className="text-sm text-gray-600">{apt.area} - {apt.date} {apt.time}</p>
                 </div>
-                <div className="flex items-center space-x-2">
-                  {apt.loyverseSync && <Wifi className="h-4 w-4 text-green-500" />}
-                  <span className={`px-2 py-1 rounded-full text-xs ${
-                    apt.status === 'Confirmada' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                  }`}>
-                    {apt.status}
-                  </span>
-                </div>
+              <div className="bg-gradient-to-r from-green-400 to-green-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+                FDA APROBADO
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="border-b border-gray-200">
+          <nav className="-mb-px flex space-x-8">
+            {[
+              { id: 'dashboard', name: 'Dashboard', icon: Star },
+              { id: 'members', name: 'Miembros', icon: Users },
+              { id: 'appointments', name: 'Citas', icon: Calendar },
+              { id: 'reports', name: 'Reportes', icon: TrendingUp }
+            ].map(tab => {
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 transition-colors duration-200 ${
+                    activeTab === tab.id
+                      ? 'border-pink-500 text-pink-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
+                >
+                  <Icon className="h-5 w-5" />
+                  <span>{tab.name}</span>
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {activeTab === 'dashboard' && <Dashboard />}
+        {activeTab === 'members' && <MembersTab />}
+        {activeTab === 'appointments' && (
+          <div className="text-center py-12">
+            <Calendar className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Módulo de Citas</h3>
+            <p className="text-gray-600">Funcionalidad en desarrollo</p>
+          </div>
+        )}
+        {activeTab === 'reports' && <SimpleReportsTab />}
+      </div>
+    </div>
+  );
+};
+
+export default DermasilkMembershipSystem;
+                <span className={`px-2 py-1 rounded-full text-xs ${
+                  apt.status === 'Confirmada' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {apt.status}
+                </span>
               </div>
             ))}
           </div>
@@ -244,24 +278,16 @@ const DermasilkMembershipSystem = () => {
             <span>WhatsApp Automatizado</span>
           </h3>
           <div className="space-y-3">
-            {whatsappMessages.map(msg => (
-              <div key={msg.id} className="p-3 border rounded-lg hover:bg-gray-50">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="font-medium text-gray-800">{msg.clientName}</p>
-                    <p className="text-sm text-gray-600">{msg.type}</p>
-                    <p className="text-xs text-gray-500">{msg.sent}</p>
-                  </div>
-                  <span className={`px-2 py-1 rounded-full text-xs ${
-                    msg.status === 'Leído' ? 'bg-blue-100 text-blue-800' : 
-                    msg.status === 'Respondido' ? 'bg-green-100 text-green-800' : 
-                    'bg-gray-100 text-gray-800'
-                  }`}>
-                    {msg.status}
-                  </span>
-                </div>
-              </div>
-            ))}
+            <div className="p-3 border rounded-lg">
+              <p className="font-medium text-gray-800">Ana García</p>
+              <p className="text-sm text-gray-600">Recordatorio enviado</p>
+              <p className="text-xs text-gray-500">2025-07-27 09:00</p>
+            </div>
+            <div className="p-3 border rounded-lg">
+              <p className="font-medium text-gray-800">María López</p>
+              <p className="text-sm text-gray-600">Tips post-sesión</p>
+              <p className="text-xs text-gray-500">2025-07-26 16:30</p>
+            </div>
           </div>
         </div>
 
@@ -285,10 +311,6 @@ const DermasilkMembershipSystem = () => {
               <div className="flex justify-between">
                 <span className="text-sm text-gray-600">Referidos este mes</span>
                 <span className="text-sm font-medium">3</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Reseñas 5 estrellas</span>
-                <span className="text-sm font-medium">8</span>
               </div>
             </div>
           </div>
@@ -328,8 +350,7 @@ const DermasilkMembershipSystem = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Membresía</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Progreso</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recompensas</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Satisfacción</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Loyverse</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
               </tr>
             </thead>
@@ -347,7 +368,6 @@ const DermasilkMembershipSystem = () => {
                         <Phone className="h-3 w-3" />
                         <span>{member.phone}</span>
                       </div>
-                      <div className="text-xs text-gray-400">Ref: {member.referredBy}</div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -377,23 +397,13 @@ const DermasilkMembershipSystem = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center space-x-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={`h-4 w-4 ${i < member.satisfaction ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
-                        />
-                      ))}
-                    </div>
-                    <div className="text-xs text-gray-500 mt-1">
-                      {member.lastWhatsApp && `WhatsApp: ${member.lastWhatsApp}`}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center space-x-2">
-                      <Wifi className="h-4 w-4 text-green-500" />
-                      <span className="text-xs text-gray-600">{member.loyverseId}</span>
-                    </div>
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                      member.status === 'Activa' ? 'bg-green-100 text-green-800' :
+                      member.status === 'Completada' ? 'bg-blue-100 text-blue-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {member.status}
+                    </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                     <button className="text-blue-600 hover:text-blue-900">
@@ -455,13 +465,6 @@ const DermasilkMembershipSystem = () => {
                 className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 value={newMember.area}
                 onChange={(e) => setNewMember({...newMember, area: e.target.value})}
-              />
-              <input
-                type="number"
-                placeholder="Depósito pagado"
-                className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                value={newMember.depositPaid}
-                onChange={(e) => setNewMember({...newMember, depositPaid: parseInt(e.target.value) || 0})}
               />
             </div>
             <div className="flex space-x-3 mt-6">
@@ -544,32 +547,36 @@ const DermasilkMembershipSystem = () => {
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold mb-4 text-gray-800">Ingresos Mensuales</h3>
           <div className="space-y-3">
-            {['Julio 2025', 'Junio 2025', 'Mayo 2025'].map((month, index) => {
-              const amount = [28500, 25200, 22800][index];
-              return (
-                <div key={month} className="flex justify-between items-center p-3 border rounded-lg">
-                  <span className="font-medium text-gray-700">{month}</span>
-                  <span className="text-green-600 font-bold">${amount.toLocaleString()}</span>
-                </div>
-              );
-            })}
+            <div className="flex justify-between items-center p-3 border rounded-lg">
+              <span className="font-medium text-gray-700">Julio 2025</span>
+              <span className="text-green-600 font-bold">$28,500</span>
+            </div>
+            <div className="flex justify-between items-center p-3 border rounded-lg">
+              <span className="font-medium text-gray-700">Junio 2025</span>
+              <span className="text-green-600 font-bold">$25,200</span>
+            </div>
+            <div className="flex justify-between items-center p-3 border rounded-lg">
+              <span className="font-medium text-gray-700">Mayo 2025</span>
+              <span className="text-green-600 font-bold">$22,800</span>
+            </div>
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold mb-4 text-gray-800">Áreas Populares</h3>
           <div className="space-y-3">
-            {[
-              { area: 'Piernas Completas', count: 8 },
-              { area: 'Axilas', count: 6 },
-              { area: 'Brazos', count: 4 },
-              { area: 'Rostro', count: 3 }
-            ].map(item => (
-              <div key={item.area} className="flex justify-between items-center p-3 border rounded-lg">
-                <span className="font-medium text-gray-700">{item.area}</span>
-                <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">{item.count} clientes</span>
-              </div>
-            ))}
+            <div className="flex justify-between items-center p-3 border rounded-lg">
+              <span className="font-medium text-gray-700">Piernas Completas</span>
+              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">8 clientes</span>
+            </div>
+            <div className="flex justify-between items-center p-3 border rounded-lg">
+              <span className="font-medium text-gray-700">Axilas</span>
+              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">6 clientes</span>
+            </div>
+            <div className="flex justify-between items-center p-3 border rounded-lg">
+              <span className="font-medium text-gray-700">Brazos</span>
+              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">4 clientes</span>
+            </div>
           </div>
         </div>
       </div>
@@ -594,58 +601,3 @@ const DermasilkMembershipSystem = () => {
               <div className="text-right">
                 <div className="text-sm font-medium text-gray-900">Dermasilk®</div>
                 <div className="text-xs text-gray-500">Morelia, Michoacán</div>
-              </div>
-              <div className="bg-gradient-to-r from-green-400 to-green-500 text-white px-3 py-1 rounded-full text-xs font-medium">
-                FDA APROBADO
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-8">
-            {[
-              { id: 'dashboard', name: 'Dashboard', icon: Star },
-              { id: 'members', name: 'Miembros', icon: Users },
-              { id: 'appointments', name: 'Citas', icon: Calendar },
-              { id: 'reports', name: 'Reportes', icon: TrendingUp }
-            ].map(tab => {
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 transition-colors duration-200 ${
-                    activeTab === tab.id
-                      ? 'border-pink-500 text-pink-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  }`}
-                >
-                  <Icon className="h-5 w-5" />
-                  <span>{tab.name}</span>
-                </button>
-              );
-            })}
-          </nav>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activeTab === 'dashboard' && <Dashboard />}
-        {activeTab === 'members' && <MembersTab />}
-        {activeTab === 'appointments' && (
-          <div className="text-center py-12">
-            <Calendar className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Módulo de Citas</h3>
-            <p className="text-gray-600">Funcionalidad en desarrollo</p>
-          </div>
-        )}
-        {activeTab === 'reports' && <SimpleReportsTab />}
-      </div>
-    </div>
-  );
-};
-
-export default DermasilkMembershipSystem;
