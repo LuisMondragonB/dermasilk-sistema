@@ -81,6 +81,10 @@ function App() {
     };
 
     setAppointments([...appointments, appointment]);
+    handleCloseModal();
+  };
+
+  const handleCloseModal = () => {
     setNewAppointment({
       clientName: '',
       phone: '',
@@ -273,7 +277,17 @@ function App() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="px-6 py-4 border-b border-gray-100">
-              <h3 className="text-xl font-semibold text-gray-900">Nueva Cita - Depilación Láser</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold text-gray-900">Nueva Cita - Depilación Láser</h3>
+                <button
+                  onClick={() => setShowNewAppointmentModal(false)}
+                  className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
             </div>
             
             <div className="p-6 space-y-6">
@@ -407,7 +421,7 @@ function App() {
             
             <div className="px-6 py-4 border-t border-gray-100 flex justify-end space-x-3">
               <button
-                onClick={() => setShowNewAppointmentModal(false)}
+                onClick={handleCloseModal}
                 className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
               >
                 Cancelar
