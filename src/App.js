@@ -280,10 +280,11 @@ function App() {
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-semibold text-gray-900">Nueva Cita - Depilación Láser</h3>
                 <button
-                  onClick={() => setShowNewAppointmentModal(false)}
-                  className="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+                  onClick={handleCloseModal}
+                  className="flex items-center space-x-2 px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
                 >
-                  ✕
+                  <span>←</span>
+                  <span>Regresar</span>
                 </button>
               </div>
             </div>
